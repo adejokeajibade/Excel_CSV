@@ -1,5 +1,11 @@
- <?php
- 
+<?php
+use File;
+use Excel;
+use Exception;
+
+public function importFiles()
+{
+
         if($request->hasFile('import_file'))
         {
            
@@ -50,12 +56,12 @@
                             
                             if (($value->surname == $fetchData[$i]->surname) && ($value->first_name == $fetchData[$i]->first_name) && ($value->sex == $fetchData[$i]->sex) )
                             {
-                                
-                                $duplicates[] = "Duplicate Entry in your Excel file  : " .$value->surname." ".$value->first_name." | ".$value->sex." has been previously imported." ; ;
+                             
+                             $duplicates[] = "Duplicate Entry in your Excel file  : " .$value->surname." ".$value->first_name." | ".$value->sex." has been previously imported." ; ;
 
                             }
                         }
-                        }
+                       }
                     }
              }
              if(!empty($duplicates))
@@ -90,7 +96,8 @@
                    
                     $new_insert = OrdineePersonalDetails::create($insert_data);
                    
-                }catch(Exception $exception)
+                }
+                 catch(Exception $exception)
                     {
                         $file_line = $insert_data['line'];
                         $file_line_b4 = $file_line - 1;
@@ -124,6 +131,8 @@
                     $successmsg = "$count Records Imported successfully ";
                     return back()->with('success',$successmsg);
                 }          
-  }
-}
+   
+            }
+   } 
+} 
 ?>
