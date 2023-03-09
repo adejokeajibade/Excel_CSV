@@ -13,7 +13,7 @@ public function importFiles()
 
              // is new file uploaded?
             if ($file = $request->file('import_file')) {
-                $file_name = $region."-".$province."-".$ord_type."-".$timestamp_unix."-".$file->getClientOriginalName();
+                $file_name = $timestamp_unix."-".$file->getClientOriginalName();
                 $folderName = '/****/***/';
                 $destinationPath = storage_path() . $folderName;
                 $sourceFilePath=$path;
@@ -94,7 +94,7 @@ public function importFiles()
 
                try{
                    
-                    $new_insert = OrdineePersonalDetails::create($insert_data);
+                    $new_insert = YourModel::create($insert_data);
                    
                 }
                  catch(Exception $exception)
@@ -103,7 +103,7 @@ public function importFiles()
                         $file_line_b4 = $file_line - 1;
                         $error_bag=json_encode($exception->errorInfo[2]);
                         $error_msg1 = "The import process was interupted because of the error encountered below on  *Line Number $file_line* of your Excel file";
-                         $error_msg2 = $error_bag." :: The TRCCG CODE on the Line Number $file_line of your excel file. It belongs to someone else.  ";
+                         $error_msg2 = $error_bag." :: The CODE on the Line Number $file_line of your excel file. It belongs to someone else.  ";
                         if($file_line <= 1) {
                             $error_msg3 = "";
                         } elseif($file_line == 2) {
